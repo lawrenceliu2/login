@@ -9,9 +9,9 @@ def welcome():
 @app.route("/auth", methods=["POST"])
 def authenticate():
     if (request.form["username"]=="harambe" and request.form["password"]=="rip"):
-        render_template("results.html", authed=true)
+        return render_template("results.html", authed=True)
     else:
-        render_template("results.html", authed=false)
+        return render_template("results.html", authed=False)
 
 
 if __name__=="__main__":
