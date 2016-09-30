@@ -13,6 +13,10 @@ def authenticate():
     else:
         return render_template("results.html", authed=False)
 
+@app.route("/register", methods=["POST"])
+def register():
+    return ""
+
 
 if __name__=="__main__":
     app.debug = True
