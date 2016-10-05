@@ -1,0 +1,34 @@
+import hashlib
+
+file=open("data/info.csv", "r")
+temp=file.read()
+temp=temp.split("\n")
+temp=temp[:1]
+file.close()
+
+dict={}
+for line in temp:
+    dict[line.split(",")[0]] = line.split(",")[1]
+
+
+def registered(username, password):
+    if username in dict.keys():
+        return False
+    else:
+        tempPass = hashlib.sha1
+        tempPass.update(password)
+        tempPass.hexdigest()
+        file=open("user&pass.csv", "a")
+        file.write(username+","+tempPass+"\n")
+        file.close()
+        return True
+
+def verifyUser(username):
+    if username in dict.keys():
+        return True
+    return False
+
+def verifyPass(username, password):
+    if dict[username]==password:
+        return True
+    return False
