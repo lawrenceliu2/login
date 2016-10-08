@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% if logged %}
+    <title>Welcome!</title>
+    {% else %}
+    <title>LOGIN PAGE</title>
+    {% endif %}
+  </head>
+
+  <body>
+    <center>
+      {% if logged %}
+      <h1>Welcome!</h1>
+      <br>
+      Thanks for logging in!
+      <br>
+      <br>
+      <h6>That's it</h6>
+      <br>
+      <form action="/logout" method="POST">
+	<input type="submit" name="logout" value="Log Out">
+      </form>
+      {% else %}
+      <h1>Login for no reason!</h1>
+      <form action="/auth" method="POST">
+	<b>Username</b>
+	<br>
+	<input type="text" name="username" value="harambe">
+	<br>
+	<br>
+	<b>Password</b>
+	<br>
+	<input type="text" name="password" value="gorilla">
+	<br>
+	<br>
+	<input type="submit" name="login" value="Login">
+      </form>
+      <br>
+      <br>
+      Need to Register?
+      <br>
+      <form action="/register" method="POST">
+	<b>Username</b>
+	<br>
+	<input type="text" name="username">
+	<br>
+	<br>
+	<b>Password</b>
+	<br>
+	<input type="text" name="password">
+	<br>
+	<br>
+	<input type="submit" name="register" value="Register">
+      </form>
+      <br>
+      <br>
+      {{ message }}
+      {% endif %}
+  </body>
+</html>

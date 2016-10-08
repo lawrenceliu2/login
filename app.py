@@ -1,8 +1,9 @@
 import util.login
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 
+app.secret_key="asdfghjkl"
 
 @app.route("/")
 def welcome():
@@ -12,7 +13,8 @@ def welcome():
 @app.route("/auth", methods=["POST"])
 def authenticate():
     if util.login.verifyUser(request.form["username"]) and util.login.verifyPass(request.form["username"], request.form["password"]):
-        return render_template("results.html", authed=True)
+        session["username"] = request.form["username"]
+        return render_template("home.html", logged=True)
     else:
         if util.login.verifyUser(request.form["username"]):
             return render_template("results.html", authed=False, why="Password incorrect!")
@@ -33,7 +35,8 @@ def register():
             return render_template("home.html", message="Sorry, that username is taken already.", logged=False)
     else:
         print request.form
-        return render_template("home.html", message="", logged=False)
+        return redirect(url_for("welcome"))
+        #return render_template("home.html", message="", logged=False)
 
 @app.route("/jacobo")
 def js():
@@ -41,10 +44,11 @@ def js():
     return redirect(url_for(""))
 
 
-@app.route("/logout"):
-def done()
-    #Asdas
-    return ""
+@app.route("/logout", methods=["POST"])
+def done():
+    session.pop("username")
+    return redirect(url_for("welcome"))
+    #return render_template("home.html", logged=False, message="Logged out successfully.")
 
 
 if __name__=="__main__":
