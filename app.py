@@ -18,8 +18,6 @@ def authenticate():
     else:
         if util.login.verifyUser(request.form["username"]):
             return render_template("results.html", authed=False, why="Password incorrect!")
-        elif util.login.verifyPass(request.form["username"], request.form["password"]):
-            return render_template("results.html", authed=False, why="Username incorrect!")
         else:
             return render_template("results.html", authed=False, why="Account not found! Please register!")
         
